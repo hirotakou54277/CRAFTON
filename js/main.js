@@ -54,3 +54,32 @@
     
 })(jQuery);
 
+/* --- Video Auto Play on Scroll --- */
+document.addEventListener('DOMContentLoaded', () => {
+    // プレイヤーの初期化
+    const player = new Plyr('#player', {
+        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+        // シークバーなどの設定
+        tooltips: { controls: true, seek: true }
+    });
+
+    // スクロール検知の設定
+    const videoElement = document.querySelector('.video-container');
+    
+    // 画面に 50% 以上入ったら再生開始
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // 画面に入った時
+                player.play();
+            } else {
+                // 画面から出た時
+                player.pause();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    if(videoElement) {
+        observer.observe(videoElement);
+    }
+});

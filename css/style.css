@@ -131,7 +131,47 @@
     margin-left: 8px;
 }
 
+/* サイト全体の背景設定 */
+body {
+    position: relative;
+    z-index: 0;
+    /* 背景画像の読み込みに失敗した場合や、透けた時の裏地として黒を指定 */
+    background-color: #0d0d0d; 
+}
 
+/* 背景画像を固定表示するための設定 */
+body::before {
+    content: "";
+    position: fixed; /* スクロールしても画像は動かないように固定 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* コンテンツの一番後ろに配置 */
+
+    /* ▼ここに背景にしたい画像のパスを指定してください */
+    background-image: url('../img/background.jpg'); 
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; /* 画面いっぱいに広げる */
+
+    /* ▼ここで背景画像の「透過率」を調整します (0.0 ～ 1.0) */
+    /* 1.0 = そのまま表示, 0.5 = 半透明, 0.1 = ほぼ見えない */
+    opacity: 0.3; 
+}
+
+/* ★重要：各セクションの背景色を半透明にする設定
+  今のままだと、各エリアの黒色(.bg-secondaryなど)が濃すぎて
+  せっかくの背景画像が見えなくなってしまいます。
+  以下のコードで、コンテンツの背景を少し透けさせます。
+*/
+.bg-dark, 
+.bg-secondary, 
+.footer {
+    /* 色は黒(#0d0d0d)で、透明度を0.85くらいにする */
+    background-color: rgba(13, 13, 13, 0.85) !important; 
+}
 /*** Header ***/
 .carousel-caption {
     top: 0;
@@ -170,7 +210,7 @@
 
 .page-header {
     padding-top: 200px;
-    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url(../img/carousel-1.jpg) top center no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url(../img/carousel-1.jpg) top center no-repeat;
     background-size: cover;
 }
 
@@ -242,14 +282,21 @@
 .service-item {
     position: relative;
     margin-top: 2.5rem;
-    overflow: hidden;
+    overflow: hidden; /* 画像を拡大しても枠からはみ出さない設定 */
 }
 
 .service-item .service-img {
     position: relative;
     display: inline-block;
+    /* ここに以下の行を追加すると、画像エリア全体のサイズ調整も可能です */
+    z-index: 2; 
 }
 
+/* ★変更点1：黒い楕円（透過）を削除したい場合
+   以下のブロック（.service-item .service-img::before）を
+   すべて削除するか、以下のようにコメントアウト（無効化）してください。
+*/
+/*
 .service-item .service-img::before {
     position: absolute;
     content: "";
@@ -262,7 +309,18 @@
     border-radius: 300px;
     z-index: 1;
 }
+*/
 
+/* ★変更点2：画像を少し大きくする設定
+   元のコードには img タグの指定がなかったので、新しく追加します。
+*/
+.service-item .service-img img {
+    width: 100%; /* 基本サイズ */
+    transform: scale(1.2); /* ★ここを調整：1.2倍に拡大（お好みで1.1や1.3に変更してください） */
+    transition: transform 0.5s; /* 滑らかに表示するためのおまじない */
+}
+
+/* 以下のコードはそのままでOKです */
 .service-item.service-item-left {
     border-radius: 500px 0 0 500px;
     background: linear-gradient(to right, var(--bs-secondary), var(--bs-dark));
@@ -279,6 +337,33 @@
         border-radius: 500px 500px 0 0;
         background: linear-gradient(to bottom, var(--bs-secondary), var(--bs-dark));
         text-align: center;
+    }
+}
+
+/* --- ここから追加・修正 --- */
+
+/* パソコン画面（幅768px以上）の時だけ、画像と文字の間に隙間を作る設定 */
+@media (min-width: 768px) {
+    
+    /* パターンA：画像が左、文字が右のとき */
+    .service-item.service-item-left .service-img {
+        /* 画像の「右側」に隙間を空ける */
+        margin-right: 50px; 
+    }
+
+    /* パターンB：画像が右、文字が左のとき */
+    .service-item.service-item-right .service-img {
+        /* 画像の「左側」に隙間を空ける */
+        margin-left: 50px; 
+    }
+}
+
+/* スマホ画面（幅768px未満）の時の調整 */
+@media (max-width: 767.98px) {
+    .service-item .service-img {
+         /* スマホの場合は画像と文字が縦に並ぶので、
+            画像の下に少し隙間を入れると見やすくなります */
+         margin-bottom: 30px;
     }
 }
 
@@ -348,6 +433,54 @@
     transition-delay: .2s;
 }
 
+/* --- Contact Form Styling --- */
+
+/* フォーム全体の枠のデザイン */
+.contact-form-box {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); /* 少し影をつけて浮かせる */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 入力フィールドのカスタマイズ（ダークモード対応） */
+.form-floating > .form-control {
+    background-color: rgba(0, 0, 0, 0.3); /* 背景を半透明の黒に */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* 枠線を薄い白に */
+    color: #fff; /* 入力文字を白に */
+    border-radius: 5px; /* 角丸を少し小さく */
+}
+
+/* 入力しようとした時（フォーカス時）のデザイン */
+.form-floating > .form-control:focus {
+    background-color: rgba(0, 0, 0, 0.5); /* フォーカス時は少し濃く */
+    border-color: var(--bs-primary); /* 枠線をピンクに */
+    box-shadow: 0 0 0 0.25rem rgba(228, 23, 121, 0.25); /* ピンクのぼかし発光 */
+    color: #fff;
+}
+
+/* ラベル（文字）の色 */
+.form-floating > label {
+    color: #a0a0a0;
+}
+
+/* 入力済み、またはフォーカス時のラベルの色 */
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+    color: var(--bs-primary); /* ピンクにする */
+    opacity: 0.8;
+}
+
+/* オートコンプリート（履歴から入力）した時の背景色が白くなるのを防ぐハック */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+    -webkit-text-fill-color: #fff;
+    -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset; /* 背景色を強制的に上書き */
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 
 /*** Testimonial ***/
 .testimonial-carousel {
@@ -390,19 +523,215 @@
 
 
 /*** Footer ***/
-@keyframes footerAnimatedBg {
-	0% {
-        background-position: 0 0;
-    }
+/* --- New Footer Design --- */
 
-	100% {
-        background-position: -1000px 0;
-    }
+/* テーブルのデザイン：黒背景に馴染むように調整 */
+.custom-table th,
+.custom-table td {
+    border-color: rgba(255, 255, 255, 0.1) !important; /* 線の色を薄く */
+    vertical-align: middle;
+    text-align: center;
+    color: #a0a0a0; /* 文字色 */
+    padding: 0.75rem 0.2rem; /* セルの余白調整 */
+    font-size: 0.9rem;
 }
 
+/* ヘッダー行の文字色 */
+.custom-table thead th {
+    color: var(--bs-primary); /* 曜日などをピンクに */
+    font-weight: 600;
+}
+
+/* 休診日（×）を目立たなくする */
+.text-dark-grey {
+    color: #444 !important;
+}
+
+/* Google Mapの枠を丸くする */
+.map-container {
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* コピーライトエリアの調整 */
+.copyright {
+    padding: 25px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2); /* 少しだけ濃くする */
+}
+
+.copyright a {
+    color: var(--bs-primary); /* リンクをピンクに */
+    text-decoration: none;
+}
+
+.copyright a:hover {
+    color: var(--bs-white);
+}
+
+/* フッター全体の背景設定（念のため再定義） */
 .footer {
-	background-image: url(../img/footer-bg.png);
-	background-position: 0px 0px;
-    background-repeat: repeat-x;
-	animation: footerAnimatedBg 50s linear infinite;
+    /* 前回の設定で .footer { background-color: rgba(13, 13, 13, 0.85) !important; } が効いていますが
+       もし効かない場合はここを有効にしてください */
+    background-color: rgba(13, 13, 13, 0.85); 
+    color: #a0a0a0;
+}
+/*フッター
+---------------------------------------------------------------------------*/
+#footer2-parts * {margin: 0;padding: 0;}
+#footer2-parts ul {list-style: none;}
+
+/*ブロック全体*/
+#footer2-parts {
+	background: #eee;	/*背景色*/
+	color: #555;		/*文字色*/
+	padding: var(--content-space);	/*フッター内の余白。css冒頭のcontent-spaceを読み込みます。*/
+}
+
+/*ロゴやSNSアイコンが入ったブロック*/
+#footer2-parts div.footer2-1-parts {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;	/*このブロック内のボックス同士の間に空ける余白。１文字分。*/
+}
+
+/*メニューブロック*/
+#footer2-parts div.footer2-2-parts {
+    flex: 1;
+}
+
+	/*画面700px以上の追加指定*/
+	@media screen and (min-width:700px) {
+
+	#footer2-parts {
+		display: flex;
+		gap: 2rem;		/*ロゴのブロックとメニューのブロックとの間の余白。2文字分。*/
+	}
+
+	/*ロゴやSNSアイコンが入ったブロック*/
+	#footer2-parts div.footer2-1-parts {
+		text-align: left;
+		width: 40%;	/*幅。40%。*/
+	}
+
+	/*メニューブロック*/
+	#footer2-parts div.footer2-2-parts {
+		/*margin-bottom: 0;	下の余白をなくす*/
+	}
+
+	}/*追加指定ここまで*/
+
+
+/*Copyright部分*/
+#footer2-parts small {
+	display: block;
+	text-align: right;
+	margin-top: 2rem;
+}
+
+
+/*SNSアイコン
+---------------------------------------------------------------------------*/
+.sns1-parts {
+	list-style: none;
+	margin: 0;padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;		/*アイコン同士のマージン的な要素。１文字分。*/
+}
+
+.sns1-parts i {
+	font-size: 30px;	/*アイコンサイズ*/
+}
+
+
+/*Google Map用
+---------------------------------------------------------------------------*/
+.iframe-box1-parts {
+	width: 100%;
+	height: 0;
+	padding-top: 56.25% !important;	/*マップの高さを増やしたい場合は、ここの数値を上げてみて下さい。*/
+	position: relative;
+	overflow: hidden;
+}
+.iframe-box1-parts iframe {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+
+/*テーブル
+---------------------------------------------------------------------------*/
+.week2-parts {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+	border-radius: 10px;	/*角を丸くする指定*/
+	border: 1px solid #ccc;	/*テーブル外側の線の幅、線種、色*/
+	table-layout: fixed;	/*幅を均等に*/
+	background: #fff;		/*テーブル全体の背景色*/
+	color: #555;			/*テーブル全体の文字色*/
+}
+
+/*受付時間の幅*/
+.week2-parts th:first-child,
+.week2-parts td:first-child {
+	width: 25%;
+}
+
+/*各曜日の幅*/
+.week2-parts th:not(:first-child),
+.week2-parts td:not(:first-child) {
+	width: calc(75% / 7);	/*受付時間で25%とっているので残りの75%を7で割る*/
+}
+
+/*th(曜日)とtd(時間)*/
+.week2-parts th,
+.week2-parts td {
+	padding: 1rem 0;	/*ボックス内の余白。上下に１文字分、左右は0。*/
+	text-align: center;	/*テキストをセンタリング*/
+	border-bottom: 1px solid #ccc;	/*下の線の幅、線種、色*/
+	border-right: 1px solid #ccc;	/*右の線の幅、線種、色*/
+}
+
+/*th(曜日)とtd(時間)のそれぞれ最後の右側の線を消す*/
+.week2-parts th:last-child,
+.week2-parts td:last-child {
+	border-right: none;
+}
+
+/*最後の行の下線を消す*/
+.week2-parts tr:last-child td {
+	border-bottom: none;
+}
+
+/*th(曜日)の追加指定*/
+.week2-parts th {
+	background: #fafafa;	/*背景色*/
+}
+.week2-parts td {
+	border-bottom: 1px solid #ccc;	/*下の線の幅、線種、色*/
+}
+
+/* --- Video Player Styling --- */
+
+/* プレイヤーのテーマカラーをピンクに変更 */
+:root {
+    --plyr-color-main: #E41779;
+}
+
+/* 動画エリアのデザイン */
+.video-container {
+    box-shadow: 0 0 40px rgba(228, 23, 121, 0.3); /* ピンク色の発光 */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* プレイヤーの背景を透過させてサイトに馴染ませる */
+.plyr--video {
+    background: transparent;
 }
