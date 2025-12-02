@@ -150,7 +150,7 @@
         opacity: 0;
         visibility: hidden;
         transition: .5s;
-        background-color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.95); /* ドロップダウンは少しだけ透過 */
     }
     
     .navbar .nav-item .dropdown-menu .dropdown-item {
@@ -184,7 +184,8 @@
 body {
     position: relative;
     z-index: 0;
-    background-color: #ffffff; 
+    /* ★変更: 背景画像を見せるため透明にする */
+    background-color: transparent; 
     color: #000000;
 }
 
@@ -204,14 +205,16 @@ body::before {
     background-position: center;
     background-size: cover;
 
-    opacity: 0.2; 
+    /* ★変更: 背景画像をくっきり表示（不透明度1.0） */
+    opacity: 1.0; 
 }
 
-/* 各セクションの背景色設定（白っぽく） */
+/* ★変更: 各セクションの背景色を透明に変更 
+   これにより背景画像が下まで透けて見えます */
 .bg-dark, 
 .bg-secondary, 
 .footer {
-    background-color: rgba(255, 255, 255, 0.9) !important; 
+    background-color: transparent !important; 
     color: #000000 !important;
 }
 
@@ -299,6 +302,12 @@ body::before {
     font-size: 18px;
     font-weight: 300;
     color: #000000 !important;
+
+    /* ▼ 修正箇所: ここを削除するか、transparentに変更します ▼ */
+    background: transparent; 
+    /* 元のコード: background: rgba(255,255,255,0.6); */
+    
+    padding: 0 5px;
 }
 
 .title .title-left h5::after,
@@ -350,14 +359,15 @@ body::before {
     transition: transform 0.5s; 
 }
 
+/* ★変更: サービス項目の背景グラデーションを半透明の白にして、背景画像を透けさせる */
 .service-item.service-item-left {
     border-radius: 500px 0 0 500px;
-    background: linear-gradient(to right, #f2f2f2, #ffffff);
+    background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
 }
 
 .service-item.service-item-right {
     border-radius: 0 500px 500px 0;
-    background: linear-gradient(to left, #f2f2f2, #ffffff);
+    background: linear-gradient(to left, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
 }
 
 .service-text h3, .service-text p {
@@ -368,7 +378,7 @@ body::before {
     .service-item.service-item-left,
     .service-item.service-item-right {
         border-radius: 500px 500px 0 0;
-        background: linear-gradient(to bottom, #f2f2f2, #ffffff);
+        background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
         text-align: center;
     }
 }
@@ -462,12 +472,13 @@ body::before {
 .contact-form-box {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    background-color: #ffffff !important;
+    /* ★変更: フォーム背景を半透明の白にして背景画像を透かす */
+    background-color: rgba(255, 255, 255, 0.85) !important;
 }
 
 /* 入力フィールドのカスタマイズ */
 .form-floating > .form-control {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.9); /* 入力欄も少し透過 */
     border: 1px solid #ccc;
     color: #000;
     border-radius: 5px; 
@@ -512,6 +523,7 @@ textarea:-webkit-autofill:focus {
   max-width: 40%;
   border: 1px solid #ddd;
   padding: 10px;
+  background: rgba(255,255,255,0.8); /* タイムラインにも背景追加 */
 }
 
 /*** Testimonial ***/
@@ -522,7 +534,8 @@ textarea:-webkit-autofill:focus {
 
 /* 通販サイトセクションなどのボックスデザイン */
 .bg-dark.rounded.p-4 {
-    background-color: #ffffff !important;
+    /* ★変更: ボックス背景を半透明の白に（文字が読めるように） */
+    background-color: rgba(255, 255, 255, 0.85) !important;
     border: 1px solid #ddd;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
@@ -622,7 +635,8 @@ textarea:-webkit-autofill:focus {
 
 /* フッター全体 */
 .footer {
-    background-color: rgba(255, 255, 255, 0.95) !important;
+    /* ★変更: フッターの白背景を透過して背景画像を出す */
+    background-color: rgba(255, 255, 255, 0.8) !important;
     color: #000000;
 }
 .footer h2, .footer h5, .footer p, .footer span {
@@ -642,16 +656,16 @@ textarea:-webkit-autofill:focus {
 
 /*ブロック全体*/
 #footer2-parts {
-	background: #eee;
-	color: #333;
-	padding: var(--content-space);
+    background: #eee;
+    color: #333;
+    padding: var(--content-space);
 }
 
 #footer2-parts div.footer2-1-parts {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 #footer2-parts div.footer2-2-parts {
@@ -659,103 +673,103 @@ textarea:-webkit-autofill:focus {
 }
 
 @media screen and (min-width:700px) {
-	#footer2-parts {
-		display: flex;
-		gap: 2rem;
-	}
-	#footer2-parts div.footer2-1-parts {
-		text-align: left;
-		width: 40%;
-	}
+    #footer2-parts {
+        display: flex;
+        gap: 2rem;
+    }
+    #footer2-parts div.footer2-1-parts {
+        text-align: left;
+        width: 40%;
+    }
 }
 
 /*Copyright部分*/
 #footer2-parts small {
-	display: block;
-	text-align: right;
-	margin-top: 2rem;
+    display: block;
+    text-align: right;
+    margin-top: 2rem;
     color: #000;
 }
 
 
 /*SNSアイコン*/
 .sns1-parts {
-	list-style: none;
-	margin: 0;padding: 0;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
+    list-style: none;
+    margin: 0;padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .sns1-parts i {
-	font-size: 30px;
+    font-size: 30px;
     color: #333;
 }
 
 
 /*Google Map用*/
 .iframe-box1-parts {
-	width: 100%;
-	height: 0;
-	padding-top: 56.25% !important;
-	position: relative;
-	overflow: hidden;
+    width: 100%;
+    height: 0;
+    padding-top: 56.25% !important;
+    position: relative;
+    overflow: hidden;
 }
 .iframe-box1-parts iframe {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
 }
 
 
 /*テーブル*/
 .week2-parts {
-	width: 100%;
-	border-collapse: separate;
-	border-spacing: 0;
-	overflow: hidden;
-	border-radius: 10px;
-	border: 1px solid #ccc;
-	table-layout: fixed;
-	background: #fff;
-	color: #333;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    table-layout: fixed;
+    background: #fff;
+    color: #333;
 }
 
 .week2-parts th:first-child,
 .week2-parts td:first-child {
-	width: 25%;
+    width: 25%;
 }
 
 .week2-parts th:not(:first-child),
 .week2-parts td:not(:first-child) {
-	width: calc(75% / 7);
+    width: calc(75% / 7);
 }
 
 .week2-parts th,
 .week2-parts td {
-	padding: 1rem 0;
-	text-align: center;
-	border-bottom: 1px solid #ccc;
-	border-right: 1px solid #ccc;
+    padding: 1rem 0;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 }
 
 .week2-parts th:last-child,
 .week2-parts td:last-child {
-	border-right: none;
+    border-right: none;
 }
 
 .week2-parts tr:last-child td {
-	border-bottom: none;
+    border-bottom: none;
 }
 
 .week2-parts th {
-	background: #fafafa;
+    background: #fafafa;
     color: #000;
 }
 .week2-parts td {
-	border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 /* --- Video Player Styling --- */
