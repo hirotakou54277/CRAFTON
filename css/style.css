@@ -1,11 +1,22 @@
 /********** Template CSS **********/
 
+/* ★追加: Bootstrapの基本カラーを「瑠璃色」に上書き */
+:root {
+    --bs-primary: #1e50a2 !important; /* ピンクから瑠璃色へ変更 */
+    --plyr-color-main: #1e50a2;       /* 動画プレイヤーの色も変更 */
+}
+
 /* ★追加: Bootstrapの文字色クラスを強制的に黒で上書きする設定 */
 .text-white, .text-white-50, .text-body {
     color: #000000 !important;
 }
 .text-light {
     color: #333333 !important;
+}
+
+/* テキストのプライマリーカラー（見出しなど）も確実に瑠璃色にする */
+.text-primary {
+    color: #1e50a2 !important;
 }
 
 .back-to-top {
@@ -64,8 +75,25 @@
     font-weight: inherit;
 }
 
+/* ボタン背景色を瑠璃色に適用 */
 .btn-primary {
-    color: var(--bs-white);
+    color: #ffffff; /* 文字は白 */
+    background-color: #1e50a2 !important;
+    border-color: #1e50a2 !important;
+}
+.btn-primary:hover {
+    background-color: #163a75 !important; /* ホバー時は少し暗く */
+    border-color: #163a75 !important;
+}
+
+/* アウトラインボタンも瑠璃色に */
+.btn-outline-primary {
+    color: #1e50a2 !important;
+    border-color: #1e50a2 !important;
+}
+.btn-outline-primary:hover {
+    background-color: #1e50a2 !important;
+    color: #ffffff !important;
 }
 
 
@@ -82,8 +110,8 @@
 .navbar .navbar-nav .nav-link {
     margin-right: 25px;
     padding: 40px 0;
-    color: #000000; /* ★変更: ナビゲーションの文字色を黒に */
-    font-weight: 600; /* 文字が見やすいように少し太く */
+    color: #000000;
+    font-weight: 600;
     font-size: 17px;
     text-transform: uppercase;
     outline: none;
@@ -92,7 +120,7 @@
 
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link.active {
-    color: var(--bs-primary);
+    color: #1e50a2; /* ホバー時の色を瑠璃色に */
 }
 
 @media (max-width: 991.98px) {
@@ -100,12 +128,12 @@
     .navbar.bg-dark .navbar-nav .nav-link {
         margin-right: 0;
         padding: 10px 0;
-        color: #000000; /* ★変更: スマホメニューでも黒文字 */
+        color: #000000;
     }
 
     .navbar .navbar-nav {
         margin-top: 8px;
-        border-top: 1px solid #ddd; /* ★変更: 境界線を薄いグレーに */
+        border-top: 1px solid #ddd;
     }
 }
 
@@ -122,18 +150,23 @@
         opacity: 0;
         visibility: hidden;
         transition: .5s;
-        background-color: #ffffff; /* ★変更: ドロップダウン背景を白に */
+        background-color: #ffffff;
     }
     
     .navbar .nav-item .dropdown-menu .dropdown-item {
-        color: #000000; /* ★変更: ドロップダウン文字を黒に */
+        color: #000000;
+    }
+    
+    .navbar .nav-item .dropdown-menu .dropdown-item:hover {
+        background-color: #f0f0f0;
+        color: #1e50a2; /* ドロップダウンホバー時も瑠璃色 */
     }
 
     .navbar .nav-item:hover .dropdown-menu {
         top: 100%;
         visibility: visible;
         transition: .5s;
-        opacity: 1; /* ★変更: 透過せずはっきり表示 */
+        opacity: 1;
     }
 }
 
@@ -144,16 +177,15 @@
     font-weight: 900;
     vertical-align: middle;
     margin-left: 8px;
-    color: #000000; /* ★変更: 矢印アイコンを黒に */
+    color: #000000;
 }
 
 /* サイト全体の背景設定 */
 body {
     position: relative;
     z-index: 0;
-    /* ★変更: ベースの背景色を白に変更 */
     background-color: #ffffff; 
-    color: #000000; /* ★変更: 基本の文字色を黒に */
+    color: #000000;
 }
 
 /* 背景画像を固定表示するための設定 */
@@ -172,19 +204,15 @@ body::before {
     background-position: center;
     background-size: cover;
 
-    /* ★変更: 背景画像の透過率を上げて、白背景となじませる */
     opacity: 0.2; 
 }
 
-/* ★変更: 各セクションの背景色を「半透明の白」に変更
-   黒文字が見えるように、背景を白くします。
-*/
+/* 各セクションの背景色設定（白っぽく） */
 .bg-dark, 
 .bg-secondary, 
 .footer {
-    /* 白(#ffffff)で、透明度を0.9くらいにする */
     background-color: rgba(255, 255, 255, 0.9) !important; 
-    color: #000000 !important; /* 文字色は黒 */
+    color: #000000 !important;
 }
 
 /*** Header ***/
@@ -194,22 +222,21 @@ body::before {
     right: 0;
     bottom: 0;
     padding-top: 100px;
-    /* ★変更: スライダー上の文字背景も少し白っぽくして文字を見やすく */
     background: rgba(255, 255, 255, 0.5);
     z-index: 1;
 }
-/* カルーセル内の文字を強制的に黒にする */
+
 .carousel-caption h1,
 .carousel-caption h5,
 .carousel-caption p {
     color: #000000 !important;
-    text-shadow: 0 0 10px rgba(255,255,255,0.8); /* 文字の周りを白く光らせて可読性アップ */
+    text-shadow: 0 0 10px rgba(255,255,255,0.8);
 }
 
 .carousel-control-prev,
 .carousel-control-next {
     width: 10%;
-    filter: invert(1); /* ★変更: 矢印アイコンを黒く反転 */
+    filter: invert(1);
 }
 
 .carousel-control-prev-icon,
@@ -239,7 +266,7 @@ body::before {
 }
 
 .page-header .breadcrumb-item + .breadcrumb-item::before {
-    color: #000000; /* ★変更 */
+    color: #000000;
 }
 
 
@@ -271,10 +298,9 @@ body::before {
     display: inline-block;
     font-size: 18px;
     font-weight: 300;
-    color: #000000 !important; /* ★変更 */
+    color: #000000 !important;
 }
 
-/* ★変更: タイトルの横線などを黒に変更 */
 .title .title-left h5::after,
 .title .title-center h5::before,
 .title .title-center h5::after,
@@ -284,7 +310,7 @@ body::before {
     width: 500%;
     height: 0;
     top: 9px;
-    border-bottom: 1px solid #000000; /* 白から黒へ変更 */
+    border-bottom: 1px solid #000000;
 }
 
 .title .title-left h5::after,
@@ -300,7 +326,7 @@ body::before {
 .title .title-left h1,
 .title .title-center h1,
 .title .title-right h1 {
-    border-bottom: 1px solid #000000; /* 白から黒へ変更 */
+    border-bottom: 1px solid #000000;
     color: #000000 !important;
 }
 
@@ -326,18 +352,16 @@ body::before {
 
 .service-item.service-item-left {
     border-radius: 500px 0 0 500px;
-    /* ★変更: グラデーションを明るいグレー系に変更 */
     background: linear-gradient(to right, #f2f2f2, #ffffff);
 }
 
 .service-item.service-item-right {
     border-radius: 0 500px 500px 0;
-    /* ★変更: グラデーションを明るいグレー系に変更 */
     background: linear-gradient(to left, #f2f2f2, #ffffff);
 }
 
 .service-text h3, .service-text p {
-    color: #000000 !important; /* ★変更: サービス内の文字を黒に */
+    color: #000000 !important;
 }
 
 @media (max-width: 767.98px) {
@@ -380,7 +404,7 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, .8); /* ★変更: 白背景 */
+    background: rgba(255, 255, 255, .8);
     color: #000;
 }
 
@@ -397,7 +421,7 @@ body::before {
     height: calc(100% - 60px);
     top: 0;
     left: 0;
-    background: rgba(255, 255, 255, .8); /* ★変更: 白背景 */
+    background: rgba(255, 255, 255, .8);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -421,14 +445,14 @@ body::before {
 .team-item .team-body .team-before span,
 .team-item .team-body .team-after span {
     margin: 5px;
-    color: #000000; /* ★変更: 黒文字 */
+    color: #000000;
     opacity: 0;
     transition: .5s;
 }
 
 .team-item:hover .team-body .team-before span,
 .team-item:hover .team-body .team-after span {
-    opacity: 1; /* ★変更: はっきり表示 */
+    opacity: 1;
     transition-delay: .2s;
 }
 
@@ -437,37 +461,38 @@ body::before {
 /* フォーム全体の枠のデザイン */
 .contact-form-box {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.1) !important; /* ★変更: 枠線を薄い黒に */
-    background-color: #ffffff !important; /* ★変更: フォーム背景を白に */
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    background-color: #ffffff !important;
 }
 
 /* 入力フィールドのカスタマイズ */
 .form-floating > .form-control {
-    background-color: #ffffff; /* ★変更: 入力欄背景を白に */
-    border: 1px solid #ccc; /* ★変更: 枠線をグレーに */
-    color: #000; /* ★変更: 入力文字を黒に */
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    color: #000;
     border-radius: 5px; 
 }
 
 /* 入力しようとした時（フォーカス時）のデザイン */
 .form-floating > .form-control:focus {
     background-color: #fff;
-    border-color: var(--bs-primary);
-    box-shadow: 0 0 0 0.25rem rgba(228, 23, 121, 0.25);
+    border-color: #1e50a2; /* フォーカス時の枠を瑠璃色に */
+    /* ピンクの影 (rgba 228,23,121) を 瑠璃色 (rgba 30,80,162) に変更 */
+    box-shadow: 0 0 0 0.25rem rgba(30, 80, 162, 0.25);
     color: #000;
 }
 
 /* ラベル（文字）の色 */
 .form-floating > label {
-    color: #666; /* ★変更: ラベルをダークグレーに */
+    color: #666;
 }
 
 /* 入力済み、またはフォーカス時のラベルの色 */
 .form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label {
-    color: var(--bs-primary); 
+    color: #1e50a2; /* ラベルも瑠璃色に */
     opacity: 1;
-    background-color: #fff; /* ラベルの背景を白にして線と被らないように */
+    background-color: #fff;
     padding: 0 5px;
 }
 
@@ -478,8 +503,8 @@ input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus {
-    -webkit-text-fill-color: #000; /* ★変更: 文字色黒 */
-    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset; /* ★変更: 背景白 */
+    -webkit-text-fill-color: #000;
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
     transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -494,20 +519,21 @@ textarea:-webkit-autofill:focus {
     max-width: 700px;
     margin: 0 auto;
 }
+
 /* 通販サイトセクションなどのボックスデザイン */
 .bg-dark.rounded.p-4 {
-    background-color: #ffffff !important; /* ★変更: ボックス背景を白に */
-    border: 1px solid #ddd; /* 枠線を追加して見やすく */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05); /* 影を追加 */
+    background-color: #ffffff !important;
+    border: 1px solid #ddd;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 .bg-dark.rounded.p-4 h5, 
 .bg-dark.rounded.p-4 p,
 .bg-dark.rounded.p-4 i {
-    color: #000000; /* 文字色黒 */
+    color: #000000;
 }
-/* アイコンだけはテーマカラーを維持したい場合は以下を残す */
+/* アイコンを瑠璃色に上書き */
 .bg-dark.rounded.p-4 i.text-primary {
-    color: var(--bs-primary) !important;
+    color: #1e50a2 !important;
 }
 
 
@@ -524,7 +550,7 @@ textarea:-webkit-autofill:focus {
     height: 60px;
     margin: 0 5px;
     padding: 10px;
-    background: #ddd; /* ★変更 */
+    background: #ddd;
     border-radius: 100px;
     transition: .5s;
 }
@@ -532,7 +558,7 @@ textarea:-webkit-autofill:focus {
 .testimonial-carousel .owl-dots .owl-dot.active {
     width: 100px;
     height: 100px;
-    background: var(--bs-primary);
+    background: #1e50a2; /* アクティブなドットを瑠璃色に */
 }
 
 .testimonial-carousel .owl-dots .owl-dot img {
@@ -552,17 +578,17 @@ textarea:-webkit-autofill:focus {
 /* テーブルのデザイン */
 .custom-table th,
 .custom-table td {
-    border-color: rgba(0, 0, 0, 0.1) !important; /* ★変更: 枠線を薄い黒に */
+    border-color: rgba(0, 0, 0, 0.1) !important;
     vertical-align: middle;
     text-align: center;
-    color: #000000; /* ★変更: 文字色黒 */
+    color: #000000;
     padding: 0.75rem 0.2rem;
     font-size: 0.9rem;
 }
 
 /* ヘッダー行の文字色 */
 .custom-table thead th {
-    color: var(--bs-primary);
+    color: #1e50a2; /* テーブルヘッダーを瑠璃色に */
     font-weight: 600;
 }
 
@@ -574,19 +600,19 @@ textarea:-webkit-autofill:focus {
 /* Google Mapの枠 */
 .map-container {
     border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1); /* ★変更 */
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* コピーライトエリア */
 .copyright {
     padding: 25px 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1); /* ★変更 */
-    background: rgba(255, 255, 255, 0.5); /* ★変更 */
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.5);
     color: #000000;
 }
 
 .copyright a {
-    color: var(--bs-primary);
+    color: #1e50a2; /* リンク色を瑠璃色に */
     text-decoration: none;
 }
 
@@ -594,19 +620,22 @@ textarea:-webkit-autofill:focus {
     color: #000000;
 }
 
-/* フッター全体の背景設定（念のため再定義） */
+/* フッター全体 */
 .footer {
-    background-color: rgba(255, 255, 255, 0.95) !important; /* ★変更: 白背景 */
-    color: #000000; /* 文字色黒 */
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    color: #000000;
 }
 .footer h2, .footer h5, .footer p, .footer span {
     color: #000000 !important;
 }
 .footer .text-white-50 {
-    color: #666 !important; /* 薄い文字をダークグレーに */
+    color: #666 !important;
+}
+.footer .text-primary {
+    color: #1e50a2 !important; /* フッター内のアイコンなども瑠璃色に */
 }
 
-/*フッター
+/*フッター (別パターン)
 ---------------------------------------------------------------------------*/
 #footer2-parts * {margin: 0;padding: 0;}
 #footer2-parts ul {list-style: none;}
@@ -614,11 +643,10 @@ textarea:-webkit-autofill:focus {
 /*ブロック全体*/
 #footer2-parts {
 	background: #eee;
-	color: #333; /* ★変更 */
+	color: #333;
 	padding: var(--content-space);
 }
 
-/*ロゴやSNSアイコンが入ったブロック*/
 #footer2-parts div.footer2-1-parts {
 	flex: 1;
 	display: flex;
@@ -626,37 +654,31 @@ textarea:-webkit-autofill:focus {
 	gap: 1rem;
 }
 
-/*メニューブロック*/
 #footer2-parts div.footer2-2-parts {
     flex: 1;
 }
 
-	@media screen and (min-width:700px) {
-
+@media screen and (min-width:700px) {
 	#footer2-parts {
 		display: flex;
 		gap: 2rem;
 	}
-
 	#footer2-parts div.footer2-1-parts {
 		text-align: left;
 		width: 40%;
 	}
-
-	}
-
+}
 
 /*Copyright部分*/
 #footer2-parts small {
 	display: block;
 	text-align: right;
 	margin-top: 2rem;
-    color: #000; /* ★変更 */
+    color: #000;
 }
 
 
-/*SNSアイコン
----------------------------------------------------------------------------*/
+/*SNSアイコン*/
 .sns1-parts {
 	list-style: none;
 	margin: 0;padding: 0;
@@ -667,12 +689,11 @@ textarea:-webkit-autofill:focus {
 
 .sns1-parts i {
 	font-size: 30px;
-    color: #333; /* ★変更 */
+    color: #333;
 }
 
 
-/*Google Map用
----------------------------------------------------------------------------*/
+/*Google Map用*/
 .iframe-box1-parts {
 	width: 100%;
 	height: 0;
@@ -689,8 +710,7 @@ textarea:-webkit-autofill:focus {
 }
 
 
-/*テーブル
----------------------------------------------------------------------------*/
+/*テーブル*/
 .week2-parts {
 	width: 100%;
 	border-collapse: separate;
@@ -700,7 +720,7 @@ textarea:-webkit-autofill:focus {
 	border: 1px solid #ccc;
 	table-layout: fixed;
 	background: #fff;
-	color: #333; /* ★変更 */
+	color: #333;
 }
 
 .week2-parts th:first-child,
@@ -732,7 +752,7 @@ textarea:-webkit-autofill:focus {
 
 .week2-parts th {
 	background: #fafafa;
-    color: #000; /* ★変更 */
+    color: #000;
 }
 .week2-parts td {
 	border-bottom: 1px solid #ccc;
@@ -740,14 +760,11 @@ textarea:-webkit-autofill:focus {
 
 /* --- Video Player Styling --- */
 
-:root {
-    --plyr-color-main: #E41779;
-}
-
 /* 動画エリアのデザイン */
 .video-container {
-    box-shadow: 0 0 40px rgba(228, 23, 121, 0.1); /* ★変更: 影を薄く */
-    border: 1px solid #ddd !important; /* ★変更 */
+    /* 影色を瑠璃色（rgba(30, 80, 162, 0.1)）に変更 */
+    box-shadow: 0 0 40px rgba(30, 80, 162, 0.1); 
+    border: 1px solid #ddd !important;
 }
 
 .plyr--video {
@@ -762,7 +779,7 @@ textarea:-webkit-autofill:focus {
     right: 45px;
     width: 50px;
     height: 50px;
-    background-color: #E41779;
+    background-color: #1e50a2; /* ボタン背景を瑠璃色に */
     color: #fff;
     border-radius: 50%;
     display: flex;
@@ -770,7 +787,8 @@ textarea:-webkit-autofill:focus {
     justify-content: center;
     text-decoration: none;
     z-index: 99;
-    box-shadow: 0 4px 15px rgba(228, 23, 121, 0.5);
+    /* 影も瑠璃色に */
+    box-shadow: 0 4px 15px rgba(30, 80, 162, 0.5);
     transition: all 0.3s ease;
     
     animation: pulse-border 2s infinite;
@@ -783,10 +801,11 @@ textarea:-webkit-autofill:focus {
 }
 
 .btn-phone:hover {
-    background-color: #333; /* ★変更: ホバー時はダークグレーに */
-    color: #E41779;
+    background-color: #333; 
+    color: #1e50a2; /* アイコンホバーを瑠璃色に */
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(228, 23, 121, 0.8);
+    /* ホバー時の影も瑠璃色に */
+    box-shadow: 0 6px 20px rgba(30, 80, 162, 0.8);
 }
 
 .btn-phone:hover i {
@@ -795,13 +814,13 @@ textarea:-webkit-autofill:focus {
 
 @keyframes pulse-border {
     0% {
-        box-shadow: 0 0 0 0 rgba(228, 23, 121, 0.7);
+        box-shadow: 0 0 0 0 rgba(30, 80, 162, 0.7);
     }
     70% {
-        box-shadow: 0 0 0 15px rgba(228, 23, 121, 0);
+        box-shadow: 0 0 0 15px rgba(30, 80, 162, 0);
     }
     100% {
-        box-shadow: 0 0 0 0 rgba(228, 23, 121, 0);
+        box-shadow: 0 0 0 0 rgba(30, 80, 162, 0);
     }
 }
 
