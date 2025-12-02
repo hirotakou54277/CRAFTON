@@ -1,5 +1,13 @@
 /********** Template CSS **********/
 
+/* ★追加: Bootstrapの文字色クラスを強制的に黒で上書きする設定 */
+.text-white, .text-white-50, .text-body {
+    color: #000000 !important;
+}
+.text-light {
+    color: #333333 !important;
+}
+
 .back-to-top {
     position: fixed;
     display: none;
@@ -74,7 +82,8 @@
 .navbar .navbar-nav .nav-link {
     margin-right: 25px;
     padding: 40px 0;
-    color: var(--bs-white);
+    color: #000000; /* ★変更: ナビゲーションの文字色を黒に */
+    font-weight: 600; /* 文字が見やすいように少し太く */
     font-size: 17px;
     text-transform: uppercase;
     outline: none;
@@ -91,11 +100,12 @@
     .navbar.bg-dark .navbar-nav .nav-link {
         margin-right: 0;
         padding: 10px 0;
+        color: #000000; /* ★変更: スマホメニューでも黒文字 */
     }
 
     .navbar .navbar-nav {
         margin-top: 8px;
-        border-top: 1px solid var(--bs-light);
+        border-top: 1px solid #ddd; /* ★変更: 境界線を薄いグレーに */
     }
 }
 
@@ -112,13 +122,18 @@
         opacity: 0;
         visibility: hidden;
         transition: .5s;
+        background-color: #ffffff; /* ★変更: ドロップダウン背景を白に */
+    }
+    
+    .navbar .nav-item .dropdown-menu .dropdown-item {
+        color: #000000; /* ★変更: ドロップダウン文字を黒に */
     }
 
     .navbar .nav-item:hover .dropdown-menu {
         top: 100%;
         visibility: visible;
         transition: .5s;
-        opacity: 0.5;
+        opacity: 1; /* ★変更: 透過せずはっきり表示 */
     }
 }
 
@@ -129,49 +144,49 @@
     font-weight: 900;
     vertical-align: middle;
     margin-left: 8px;
+    color: #000000; /* ★変更: 矢印アイコンを黒に */
 }
 
 /* サイト全体の背景設定 */
 body {
     position: relative;
     z-index: 0;
-    /* 背景画像の読み込みに失敗した場合や、透けた時の裏地として黒を指定 */
-    background-color: #0d0d0d; 
+    /* ★変更: ベースの背景色を白に変更 */
+    background-color: #ffffff; 
+    color: #000000; /* ★変更: 基本の文字色を黒に */
 }
 
 /* 背景画像を固定表示するための設定 */
 body::before {
     content: "";
-    position: fixed; /* スクロールしても画像は動かないように固定 */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* コンテンツの一番後ろに配置 */
+    z-index: -1;
 
-    /* ▼ここに背景にしたい画像のパスを指定してください */
     background-image: url('../img/background.jpg'); 
     
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover; /* 画面いっぱいに広げる */
+    background-size: cover;
 
-    /* ▼ここで背景画像の「透過率」を調整します (0.0 ～ 1.0) */
-    /* 1.0 = そのまま表示, 0.5 = 半透明, 0.1 = ほぼ見えない */
-    opacity: 0.5; 
+    /* ★変更: 背景画像の透過率を上げて、白背景となじませる */
+    opacity: 0.2; 
 }
 
-/* ★重要：各セクションの背景色を半透明にする設定
-  今のままだと、各エリアの黒色(.bg-secondaryなど)が濃すぎて
-  せっかくの背景画像が見えなくなってしまいます。
-  以下のコードで、コンテンツの背景を少し透けさせます。
+/* ★変更: 各セクションの背景色を「半透明の白」に変更
+   黒文字が見えるように、背景を白くします。
 */
 .bg-dark, 
 .bg-secondary, 
 .footer {
-    /* 色は黒(#0d0d0d)で、透明度を0.85くらいにする */
-    background-color: rgba(13, 13, 13, 0.2) !important; 
+    /* 白(#ffffff)で、透明度を0.9くらいにする */
+    background-color: rgba(255, 255, 255, 0.9) !important; 
+    color: #000000 !important; /* 文字色は黒 */
 }
+
 /*** Header ***/
 .carousel-caption {
     top: 0;
@@ -179,13 +194,22 @@ body::before {
     right: 0;
     bottom: 0;
     padding-top: 100px;
-    background: rgba(21, 21, 21, 0.7);
+    /* ★変更: スライダー上の文字背景も少し白っぽくして文字を見やすく */
+    background: rgba(255, 255, 255, 0.5);
     z-index: 1;
+}
+/* カルーセル内の文字を強制的に黒にする */
+.carousel-caption h1,
+.carousel-caption h5,
+.carousel-caption p {
+    color: #000000 !important;
+    text-shadow: 0 0 10px rgba(255,255,255,0.8); /* 文字の周りを白く光らせて可読性アップ */
 }
 
 .carousel-control-prev,
 .carousel-control-next {
     width: 10%;
+    filter: invert(1); /* ★変更: 矢印アイコンを黒く反転 */
 }
 
 .carousel-control-prev-icon,
@@ -210,12 +234,12 @@ body::before {
 
 .page-header {
     padding-top: 200px;
-    background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url(../img/carousel-1.jpg) top center no-repeat;
+    background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url(../img/carousel-1.jpg) top center no-repeat;
     background-size: cover;
 }
 
 .page-header .breadcrumb-item + .breadcrumb-item::before {
-    color: var(--bs-white);
+    color: #000000; /* ★変更 */
 }
 
 
@@ -247,8 +271,10 @@ body::before {
     display: inline-block;
     font-size: 18px;
     font-weight: 300;
+    color: #000000 !important; /* ★変更 */
 }
 
+/* ★変更: タイトルの横線などを黒に変更 */
 .title .title-left h5::after,
 .title .title-center h5::before,
 .title .title-center h5::after,
@@ -258,7 +284,7 @@ body::before {
     width: 500%;
     height: 0;
     top: 9px;
-    border-bottom: 1px solid var(--bs-white);
+    border-bottom: 1px solid #000000; /* 白から黒へ変更 */
 }
 
 .title .title-left h5::after,
@@ -274,7 +300,8 @@ body::before {
 .title .title-left h1,
 .title .title-center h1,
 .title .title-right h1 {
-    border-bottom: 1px solid var(--bs-white);
+    border-bottom: 1px solid #000000; /* 白から黒へ変更 */
+    color: #000000 !important;
 }
 
 
@@ -282,87 +309,58 @@ body::before {
 .service-item {
     position: relative;
     margin-top: 2.5rem;
-    overflow: hidden; /* 画像を拡大しても枠からはみ出さない設定 */
+    overflow: hidden;
 }
 
 .service-item .service-img {
     position: relative;
     display: inline-block;
-    /* ここに以下の行を追加すると、画像エリア全体のサイズ調整も可能です */
     z-index: 2; 
 }
 
-/* ★変更点1：黒い楕円（透過）を削除したい場合
-   以下のブロック（.service-item .service-img::before）を
-   すべて削除するか、以下のようにコメントアウト（無効化）してください。
-*/
-/*
-.service-item .service-img::before {
-    position: absolute;
-    content: "";
-    width: calc(100% - 12rem);
-    height: calc(100% - 12rem);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 3rem solid rgba(0, 0, 0, .5);
-    border-radius: 300px;
-    z-index: 1;
-}
-*/
-
-/* ★変更点2：画像を少し大きくする設定
-   元のコードには img タグの指定がなかったので、新しく追加します。
-*/
 .service-item .service-img img {
-    width: 100%; /* 基本サイズ */
-    transform: scale(1.2); /* ★ここを調整：1.2倍に拡大（お好みで1.1や1.3に変更してください） */
-    transition: transform 0.5s; /* 滑らかに表示するためのおまじない */
+    width: 100%; 
+    transform: scale(1.2); 
+    transition: transform 0.5s; 
 }
 
-/* 以下のコードはそのままでOKです */
 .service-item.service-item-left {
     border-radius: 500px 0 0 500px;
-    background: linear-gradient(to right, var(--bs-secondary), var(--bs-dark));
+    /* ★変更: グラデーションを明るいグレー系に変更 */
+    background: linear-gradient(to right, #f2f2f2, #ffffff);
 }
 
 .service-item.service-item-right {
     border-radius: 0 500px 500px 0;
-    background: linear-gradient(to left, var(--bs-secondary), var(--bs-dark));
+    /* ★変更: グラデーションを明るいグレー系に変更 */
+    background: linear-gradient(to left, #f2f2f2, #ffffff);
+}
+
+.service-text h3, .service-text p {
+    color: #000000 !important; /* ★変更: サービス内の文字を黒に */
 }
 
 @media (max-width: 767.98px) {
     .service-item.service-item-left,
     .service-item.service-item-right {
         border-radius: 500px 500px 0 0;
-        background: linear-gradient(to bottom, var(--bs-secondary), var(--bs-dark));
+        background: linear-gradient(to bottom, #f2f2f2, #ffffff);
         text-align: center;
     }
 }
 
-/* --- ここから追加・修正 --- */
-
-/* パソコン画面（幅768px以上）の時だけ、画像と文字の間に隙間を作る設定 */
 @media (min-width: 768px) {
-    
-    /* パターンA：画像が左、文字が右のとき */
     .service-item.service-item-left .service-img {
-        /* 画像の「右側」に隙間を空ける */
         margin-right: 50px; 
     }
 
-    /* パターンB：画像が右、文字が左のとき */
     .service-item.service-item-right .service-img {
-        /* 画像の「左側」に隙間を空ける */
         margin-left: 50px; 
     }
 }
 
-/* スマホ画面（幅768px未満）の時の調整 */
 @media (max-width: 767.98px) {
     .service-item .service-img {
-         /* スマホの場合は画像と文字が縦に並ぶので、
-            画像の下に少し隙間を入れると見やすくなります */
          margin-bottom: 30px;
     }
 }
@@ -382,7 +380,8 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, .7);
+    background: rgba(255, 255, 255, .8); /* ★変更: 白背景 */
+    color: #000;
 }
 
 .team-item .team-body {
@@ -398,7 +397,7 @@ body::before {
     height: calc(100% - 60px);
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, .7);
+    background: rgba(255, 255, 255, .8); /* ★変更: 白背景 */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -422,14 +421,14 @@ body::before {
 .team-item .team-body .team-before span,
 .team-item .team-body .team-after span {
     margin: 5px;
-    color: var(--bs-white);
+    color: #000000; /* ★変更: 黒文字 */
     opacity: 0;
     transition: .5s;
 }
 
 .team-item:hover .team-body .team-before span,
 .team-item:hover .team-body .team-after span {
-    opacity: 0.5;
+    opacity: 1; /* ★変更: はっきり表示 */
     transition-delay: .2s;
 }
 
@@ -437,60 +436,80 @@ body::before {
 
 /* フォーム全体の枠のデザイン */
 .contact-form-box {
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); /* 少し影をつけて浮かせる */
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1) !important; /* ★変更: 枠線を薄い黒に */
+    background-color: #ffffff !important; /* ★変更: フォーム背景を白に */
 }
 
-/* 入力フィールドのカスタマイズ（ダークモード対応） */
+/* 入力フィールドのカスタマイズ */
 .form-floating > .form-control {
-    background-color: rgba(0, 0, 0, 0.3); /* 背景を半透明の黒に */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* 枠線を薄い白に */
-    color: #fff; /* 入力文字を白に */
-    border-radius: 5px; /* 角丸を少し小さく */
+    background-color: #ffffff; /* ★変更: 入力欄背景を白に */
+    border: 1px solid #ccc; /* ★変更: 枠線をグレーに */
+    color: #000; /* ★変更: 入力文字を黒に */
+    border-radius: 5px; 
 }
 
 /* 入力しようとした時（フォーカス時）のデザイン */
 .form-floating > .form-control:focus {
-    background-color: rgba(0, 0, 0, 0.5); /* フォーカス時は少し濃く */
-    border-color: var(--bs-primary); /* 枠線をピンクに */
-    box-shadow: 0 0 0 0.25rem rgba(228, 23, 121, 0.25); /* ピンクのぼかし発光 */
-    color: #fff;
+    background-color: #fff;
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(228, 23, 121, 0.25);
+    color: #000;
 }
 
 /* ラベル（文字）の色 */
 .form-floating > label {
-    color: #a0a0a0;
+    color: #666; /* ★変更: ラベルをダークグレーに */
 }
 
 /* 入力済み、またはフォーカス時のラベルの色 */
 .form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label {
-    color: var(--bs-primary); /* ピンクにする */
-    opacity: 0.8;
+    color: var(--bs-primary); 
+    opacity: 1;
+    background-color: #fff; /* ラベルの背景を白にして線と被らないように */
+    padding: 0 5px;
 }
 
-/* オートコンプリート（履歴から入力）した時の背景色が白くなるのを防ぐハック */
+/* オートコンプリート時の背景色調整 */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus {
-    -webkit-text-fill-color: #fff;
-    -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset; /* 背景色を強制的に上書き */
+    -webkit-text-fill-color: #000; /* ★変更: 文字色黒 */
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset; /* ★変更: 背景白 */
     transition: background-color 5000s ease-in-out 0s;
 }
 
 .timeline {
   max-width: 40%;
-  border: 1px solid #333;
+  border: 1px solid #ddd;
   padding: 10px;
 }
+
 /*** Testimonial ***/
 .testimonial-carousel {
     max-width: 700px;
     margin: 0 auto;
 }
+/* 通販サイトセクションなどのボックスデザイン */
+.bg-dark.rounded.p-4 {
+    background-color: #ffffff !important; /* ★変更: ボックス背景を白に */
+    border: 1px solid #ddd; /* 枠線を追加して見やすく */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05); /* 影を追加 */
+}
+.bg-dark.rounded.p-4 h5, 
+.bg-dark.rounded.p-4 p,
+.bg-dark.rounded.p-4 i {
+    color: #000000; /* 文字色黒 */
+}
+/* アイコンだけはテーマカラーを維持したい場合は以下を残す */
+.bg-dark.rounded.p-4 i.text-primary {
+    color: var(--bs-primary) !important;
+}
+
 
 .testimonial-carousel .owl-dots {
     margin-top: 35px;
@@ -505,7 +524,7 @@ textarea:-webkit-autofill:focus {
     height: 60px;
     margin: 0 5px;
     padding: 10px;
-    background: var(--bs-dark);
+    background: #ddd; /* ★変更 */
     border-radius: 100px;
     transition: .5s;
 }
@@ -513,10 +532,11 @@ textarea:-webkit-autofill:focus {
 .testimonial-carousel .owl-dots .owl-dot.active {
     width: 100px;
     height: 100px;
+    background: var(--bs-primary);
 }
 
 .testimonial-carousel .owl-dots .owl-dot img {
-    opacity: .1;
+    opacity: .5;
     transition: .5s;
     border-radius: 100px;
 }
@@ -529,57 +549,63 @@ textarea:-webkit-autofill:focus {
 /*** Footer ***/
 /* --- New Footer Design --- */
 
-/* テーブルのデザイン：黒背景に馴染むように調整 */
+/* テーブルのデザイン */
 .custom-table th,
 .custom-table td {
-    border-color: rgba(255, 255, 255, 0.1) !important; /* 線の色を薄く */
+    border-color: rgba(0, 0, 0, 0.1) !important; /* ★変更: 枠線を薄い黒に */
     vertical-align: middle;
     text-align: center;
-    color: #a0a0a0; /* 文字色 */
-    padding: 0.75rem 0.2rem; /* セルの余白調整 */
+    color: #000000; /* ★変更: 文字色黒 */
+    padding: 0.75rem 0.2rem;
     font-size: 0.9rem;
 }
 
 /* ヘッダー行の文字色 */
 .custom-table thead th {
-    color: var(--bs-primary); /* 曜日などをピンクに */
+    color: var(--bs-primary);
     font-weight: 600;
 }
 
-/* 休診日（×）を目立たなくする */
+/* 休診日（×） */
 .text-dark-grey {
-    color: #444 !important;
+    color: #999 !important;
 }
 
-/* Google Mapの枠を丸くする */
+/* Google Mapの枠 */
 .map-container {
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1); /* ★変更 */
 }
 
-/* コピーライトエリアの調整 */
+/* コピーライトエリア */
 .copyright {
     padding: 25px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.2); /* 少しだけ濃くする */
+    border-top: 1px solid rgba(0, 0, 0, 0.1); /* ★変更 */
+    background: rgba(255, 255, 255, 0.5); /* ★変更 */
+    color: #000000;
 }
 
 .copyright a {
-    color: var(--bs-primary); /* リンクをピンクに */
+    color: var(--bs-primary);
     text-decoration: none;
 }
 
 .copyright a:hover {
-    color: var(--bs-white);
+    color: #000000;
 }
 
 /* フッター全体の背景設定（念のため再定義） */
 .footer {
-    /* 前回の設定で .footer { background-color: rgba(13, 13, 13, 0.85) !important; } が効いていますが
-       もし効かない場合はここを有効にしてください */
-    background-color: rgba(13, 13, 13, 0.85); 
-    color: #a0a0a0;
+    background-color: rgba(255, 255, 255, 0.95) !important; /* ★変更: 白背景 */
+    color: #000000; /* 文字色黒 */
 }
+.footer h2, .footer h5, .footer p, .footer span {
+    color: #000000 !important;
+}
+.footer .text-white-50 {
+    color: #666 !important; /* 薄い文字をダークグレーに */
+}
+
 /*フッター
 ---------------------------------------------------------------------------*/
 #footer2-parts * {margin: 0;padding: 0;}
@@ -587,9 +613,9 @@ textarea:-webkit-autofill:focus {
 
 /*ブロック全体*/
 #footer2-parts {
-	background: #eee;	/*背景色*/
-	color: #555;		/*文字色*/
-	padding: var(--content-space);	/*フッター内の余白。css冒頭のcontent-spaceを読み込みます。*/
+	background: #eee;
+	color: #333; /* ★変更 */
+	padding: var(--content-space);
 }
 
 /*ロゴやSNSアイコンが入ったブロック*/
@@ -597,7 +623,7 @@ textarea:-webkit-autofill:focus {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;	/*このブロック内のボックス同士の間に空ける余白。１文字分。*/
+	gap: 1rem;
 }
 
 /*メニューブロック*/
@@ -605,26 +631,19 @@ textarea:-webkit-autofill:focus {
     flex: 1;
 }
 
-	/*画面700px以上の追加指定*/
 	@media screen and (min-width:700px) {
 
 	#footer2-parts {
 		display: flex;
-		gap: 2rem;		/*ロゴのブロックとメニューのブロックとの間の余白。2文字分。*/
+		gap: 2rem;
 	}
 
-	/*ロゴやSNSアイコンが入ったブロック*/
 	#footer2-parts div.footer2-1-parts {
 		text-align: left;
-		width: 40%;	/*幅。40%。*/
+		width: 40%;
 	}
 
-	/*メニューブロック*/
-	#footer2-parts div.footer2-2-parts {
-		/*margin-bottom: 0;	下の余白をなくす*/
 	}
-
-	}/*追加指定ここまで*/
 
 
 /*Copyright部分*/
@@ -632,6 +651,7 @@ textarea:-webkit-autofill:focus {
 	display: block;
 	text-align: right;
 	margin-top: 2rem;
+    color: #000; /* ★変更 */
 }
 
 
@@ -642,11 +662,12 @@ textarea:-webkit-autofill:focus {
 	margin: 0;padding: 0;
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1rem;		/*アイコン同士のマージン的な要素。１文字分。*/
+	gap: 1rem;
 }
 
 .sns1-parts i {
-	font-size: 30px;	/*アイコンサイズ*/
+	font-size: 30px;
+    color: #333; /* ★変更 */
 }
 
 
@@ -655,7 +676,7 @@ textarea:-webkit-autofill:focus {
 .iframe-box1-parts {
 	width: 100%;
 	height: 0;
-	padding-top: 56.25% !important;	/*マップの高さを増やしたい場合は、ここの数値を上げてみて下さい。*/
+	padding-top: 56.25% !important;
 	position: relative;
 	overflow: hidden;
 }
@@ -675,67 +696,60 @@ textarea:-webkit-autofill:focus {
 	border-collapse: separate;
 	border-spacing: 0;
 	overflow: hidden;
-	border-radius: 10px;	/*角を丸くする指定*/
-	border: 1px solid #ccc;	/*テーブル外側の線の幅、線種、色*/
-	table-layout: fixed;	/*幅を均等に*/
-	background: #fff;		/*テーブル全体の背景色*/
-	color: #555;			/*テーブル全体の文字色*/
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	table-layout: fixed;
+	background: #fff;
+	color: #333; /* ★変更 */
 }
 
-/*受付時間の幅*/
 .week2-parts th:first-child,
 .week2-parts td:first-child {
 	width: 25%;
 }
 
-/*各曜日の幅*/
 .week2-parts th:not(:first-child),
 .week2-parts td:not(:first-child) {
-	width: calc(75% / 7);	/*受付時間で25%とっているので残りの75%を7で割る*/
+	width: calc(75% / 7);
 }
 
-/*th(曜日)とtd(時間)*/
 .week2-parts th,
 .week2-parts td {
-	padding: 1rem 0;	/*ボックス内の余白。上下に１文字分、左右は0。*/
-	text-align: center;	/*テキストをセンタリング*/
-	border-bottom: 1px solid #ccc;	/*下の線の幅、線種、色*/
-	border-right: 1px solid #ccc;	/*右の線の幅、線種、色*/
+	padding: 1rem 0;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
 }
 
-/*th(曜日)とtd(時間)のそれぞれ最後の右側の線を消す*/
 .week2-parts th:last-child,
 .week2-parts td:last-child {
 	border-right: none;
 }
 
-/*最後の行の下線を消す*/
 .week2-parts tr:last-child td {
 	border-bottom: none;
 }
 
-/*th(曜日)の追加指定*/
 .week2-parts th {
-	background: #fafafa;	/*背景色*/
+	background: #fafafa;
+    color: #000; /* ★変更 */
 }
 .week2-parts td {
-	border-bottom: 1px solid #ccc;	/*下の線の幅、線種、色*/
+	border-bottom: 1px solid #ccc;
 }
 
 /* --- Video Player Styling --- */
 
-/* プレイヤーのテーマカラーをピンクに変更 */
 :root {
     --plyr-color-main: #E41779;
 }
 
 /* 動画エリアのデザイン */
 .video-container {
-    box-shadow: 0 0 40px rgba(228, 23, 121, 0.3); /* ピンク色の発光 */
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 0 40px rgba(228, 23, 121, 0.1); /* ★変更: 影を薄く */
+    border: 1px solid #ddd !important; /* ★変更 */
 }
 
-/* プレイヤーの背景を透過させてサイトに馴染ませる */
 .plyr--video {
     background: transparent;
 }
@@ -744,12 +758,11 @@ textarea:-webkit-autofill:focus {
 
 .btn-phone {
     position: fixed;
-    /* トップに戻るボタン(bottom:45px)のさらに上に配置 */
     bottom: 110px; 
     right: 45px;
     width: 50px;
     height: 50px;
-    background-color: #E41779; /* サイトのテーマカラー（ピンク） */
+    background-color: #E41779;
     color: #fff;
     border-radius: 50%;
     display: flex;
@@ -757,33 +770,29 @@ textarea:-webkit-autofill:focus {
     justify-content: center;
     text-decoration: none;
     z-index: 99;
-    box-shadow: 0 4px 15px rgba(228, 23, 121, 0.5); /* 影をつけて浮かせる */
+    box-shadow: 0 4px 15px rgba(228, 23, 121, 0.5);
     transition: all 0.3s ease;
     
-    /* 波紋アニメーションの設定 */
     animation: pulse-border 2s infinite;
 }
 
-/* アイコンのサイズ調整 */
 .btn-phone i {
     font-size: 20px;
-    transform: rotate(0deg); /* 必要なら角度調整 */
+    transform: rotate(0deg);
     transition: transform 0.3s;
 }
 
-/* ホバー時（マウスを乗せた時）の動き */
 .btn-phone:hover {
-    background-color: #fff; /* 背景を白に */
-    color: #E41779; /* アイコンをピンクに */
-    transform: scale(1.1); /* 少し大きくする */
+    background-color: #333; /* ★変更: ホバー時はダークグレーに */
+    color: #E41779;
+    transform: scale(1.1);
     box-shadow: 0 6px 20px rgba(228, 23, 121, 0.8);
 }
 
 .btn-phone:hover i {
-    transform: rotate(15deg); /* アイコンを少し振る */
+    transform: rotate(15deg);
 }
 
-/* 波紋（パルス）のアニメーション定義 */
 @keyframes pulse-border {
     0% {
         box-shadow: 0 0 0 0 rgba(228, 23, 121, 0.7);
@@ -796,12 +805,11 @@ textarea:-webkit-autofill:focus {
     }
 }
 
-/* スマホ画面での微調整 */
 @media (max-width: 768px) {
     .btn-phone {
         right: 30px;
         bottom: 100px;
-        width: 55px; /* スマホでは押しやすいように少し大きく */
+        width: 55px;
         height: 55px;
     }
     .btn-phone i {
