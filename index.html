@@ -155,7 +155,7 @@
                                 <a href="#!" class="btn btn-outline-primary border-2 py-3 w-100">工賃単価表を見る</a>
                             </div>
                             <div class="col-6">
-                                <a href="#!" class="btn btn-primary py-3 w-100">工賃をシュミレーションしてみる</a>
+                                <a href="#" class="btn btn-primary py-3 w-100" id="start-simulation-btn">工賃をシュミレーションしてみる</a>
                             </div>
                         </div>
                     </div>
@@ -311,7 +311,7 @@
             <div class="text-center">
                 <div class="title wow fadeInUp" data-wow-delay="0.1s">
                     <div class="title-center">
-                        <h5>Online Shop</h5>
+                        <h5>オンラインショップ</h5>
                         <h1>CRAFTON 通販サイト</h1>
                     </div>
                 </div>
@@ -568,6 +568,46 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <!-- Simulation Modal Start -->
+    <div id="simulation-modal" class="simulation-modal-overlay">
+        <div class="simulation-modal-content">
+            <span class="close-modal">&times;</span>
+            
+            <!-- 進捗バー -->
+            <div class="d-flex justify-content-between small text-muted mb-1">
+                <span>Simulation Progress</span>
+                <span><span id="current-step">1</span> / <span id="total-steps">5</span></span>
+            </div>
+            <div class="simulation-progress">
+                <div id="progress-bar" class="simulation-progress-bar"></div>
+            </div>
+
+            <!-- 質問エリア -->
+            <div id="question-container">
+                <h4 id="question-title" class="simulation-title">質問がここに表示されます</h4>
+                <div id="options-container" class="d-grid gap-2">
+                    <!-- JSでボタンが生成されます -->
+                </div>
+            </div>
+
+            <!-- 結果エリア (最初は非表示) -->
+            <div id="result-container" style="display: none;" class="text-center">
+                <h4 class="simulation-title">あなたの推定工賃は...</h4>
+                <div class="result-wage-display">
+                    <span id="result-wage">0</span><span class="result-wage-unit">円 / 日</span>
+                </div>
+                <p class="mb-4">※あくまで目安です。実際の工賃は作業能力や通所日数により変動します。</p>
+                <div class="d-grid gap-2">
+                    <button id="retry-btn" class="btn btn-outline-primary">もう一度計算する</button>
+                    <button id="close-result-btn" class="btn btn-primary">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Simulation Modal End -->
+
+    <!-- 作成したJSファイルを読み込む -->
+    <script src="js/simulation.js"></script>
 </body>
 
 </html>
